@@ -1,4 +1,4 @@
-package Day4pt1;
+package Day4pt2;
 import java.lang.*;
 import java.util.*;
 import java.io.*;
@@ -25,15 +25,15 @@ public class PassportAnalyzer {
 			Passport currentPassport = new Passport();
 			System.out.println(passports.get(x));
 			currentPassport.consumeInputString(passports.get(x));
-			String missingFieldsForPassport = currentPassport.missingFields();
+			String missingFieldsForPassport = currentPassport.validateFields();
 			if (missingFieldsForPassport.equals("")) {
 				System.out.println("This passport has all required fields! It is valid.");
 				validPassports++;
 			} else if (missingFieldsForPassport.equals("cid")) {
-				System.out.println("This passport is missing the CID field, but we'll let it slide for now ;3");
+				System.out.println("This passport is incorrect in the CID field, but we'll let it slide for now ;3");
 				validPassports++;
 			} else {
-				System.out.println("This passport is invalid as it is missing the following fields: " + missingFieldsForPassport);
+				System.out.println("This passport is invalid as it is incorrect in the following fields: " + missingFieldsForPassport);
 			}
 			System.out.println("Running total: " + validPassports);
 		}
