@@ -4,8 +4,6 @@ import java.io.*;
 
 public class CustomsLuggage5000 {
 	
-	public static Dictionary<String, ArrayList<String> > ruleBook = new Hashtable<String, ArrayList<String> >();
-		
 	public static void main(String[] args) throws Exception{
 		String fileLocation = System.getProperty("user.dir") + "\\" + args[0];
 		Scanner inputFile = new Scanner(new FileReader(fileLocation));
@@ -13,7 +11,7 @@ public class CustomsLuggage5000 {
 		while(inputFile.hasNextLine()) {
 			String rule = inputFile.nextLine();
 			
-			String[] rulesSet = split(rule, " contain ");
+			String[] rulesSet = split(rule, " bags contain ");
 			String key = rulesSet[0];
 			String entries = rulesSet[1];
 			ArrayList<String> entriesList = new ArrayList<String>();
@@ -22,11 +20,17 @@ public class CustomsLuggage5000 {
 				entriesList.add(tempSolutions[0].trim());
 				entries = tempSolutions[1];
 			} while (entries != null);	
+			int finalIndex = entriesList.size()-1;
+			entriesList.set(finalIndex, split(entriesList.get(entriesList.size()-1), " bag")[0]); 
+			// This will remove the "bag" and "bags" element at the end, standardizing it.
 			ruleBook.put(key, entriesList);
 		}
 		
 		System.out.println(ruleBook);
 	}
+	
+	public static Dictionary<String, ArrayList<String> > ruleBook = new Hashtable<String, ArrayList<String> >();
+		
 	
 	//A method that will split a string into two strings around the first occurence of a character.
 	public static String[] split(String inputString, String c) {
@@ -51,7 +55,7 @@ public class CustomsLuggage5000 {
 		ArrayList<String> resultBags = ruleBook.get(bagName);
 		for(int x = 0; x < resultBags.size(); x++) {
 			listOfBags += resultBags.get(x);
-			listOfBags += processBag(resultBags);
+			listOfBags += processBag(resultBags.get(x));
 		}
 		return listOfBags;
 	}
