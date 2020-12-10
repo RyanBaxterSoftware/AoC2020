@@ -25,16 +25,7 @@ public class CustomsLuggage5000 {
 			ruleBook.put(key, entriesList);
 		}
 		
-		Enumeration<String> bags = ruleBook.keys();
-		int numOfBagsWithGoldBags = 0;
-		
-		while(bags.hasMoreElements()) {
-			String contents = bags + processBag(bags.nextElement());
-			if(contents.contains("shiny gold")) {
-				numOfBagsWithGoldBags++;
-			}
-		}
-		System.out.println("There are " + numOfBagsWithGoldBags + " number of bag colors that contain shiny gold bags");
+		System.out.println("There are " + countBags("shiny gold") + " number of bags contained in shiny gold bags");
 	}
 	
 	public static Dictionary<String, ArrayList<String> > ruleBook = new Hashtable<String, ArrayList<String> >();
@@ -83,7 +74,7 @@ public class CustomsLuggage5000 {
 				int numTheseBags = Integer.parseInt(foundValue[0]);
 				System.out.println("About to add and process " + resultBags.get(x));
 				total += numTheseBags;
-				total +=  countBags(foundValue[1]);
+				total += numTheseBags*countBags(foundValue[1]);
 			}
 		}
 		return total;
